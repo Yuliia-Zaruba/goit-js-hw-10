@@ -14,17 +14,17 @@ const objectsLinks = {
 
 let userSelectedDate = null;
 let timerId = null;
-refs.startBtn.disabled = true;
+objectsLinks.startBtn.disabled = true;
 
-flatpickr(refs.dateInput, {
+flatpickr(objectsLinks.dateInput, {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
-    refs.startBtn.disabled = userSelectedDate <= new Date();
-    if (refs.startBtn.disabled) {
+    objectsLinks.startBtn.disabled = userSelectedDate <= new Date();
+    if (objectsLinks.startBtn.disabled) {
       iziToast.error({ message: 'Please choose a date in the future' });
     } else {
       console.log('Выбранная дата:', formatDate(userSelectedDate));
@@ -32,9 +32,9 @@ flatpickr(refs.dateInput, {
   },
 });
 
-refs.startBtn.addEventListener('click', () => {
-  refs.startBtn.disabled = true;
-  refs.dateInput.disabled = true;
+objectsLinks.startBtn.addEventListener('click', () => {
+  objectsLinks.startBtn.disabled = true;
+  objectsLinks.dateInput.disabled = true;
   updateTimer();
   timerId = setInterval(updateTimer, 1000);
 });
@@ -43,7 +43,7 @@ function updateTimer() {
   const timeLeft = userSelectedDate - new Date();
   if (timeLeft <= 0) {
     clearInterval(timerId);
-    refs.dateInput.disabled = false;
+    objectsLinks.dateInput.disabled = false;
     setTimerDisplay(0, 0, 0, 0);
     return;
   }
@@ -52,11 +52,11 @@ function updateTimer() {
 }
 
 function setTimerDisplay(days, hours, minutes, seconds) {
-  Object.assign(refs, {
-    days: (refs.days.textContent = addLeadingZero(days)),
-    hours: (refs.hours.textContent = addLeadingZero(hours)),
-    minutes: (refs.minutes.textContent = addLeadingZero(minutes)),
-    seconds: (refs.seconds.textContent = addLeadingZero(seconds)),
+  Object.assign(objectsLinks, {
+    days: (objectsLinks.days.textContent = addLeadingZero(days)),
+    hours: (objectsLinks.hours.textContent = addLeadingZero(hours)),
+    minutes: (objectsLinks.minutes.textContent = addLeadingZero(minutes)),
+    seconds: (objectsLinks.seconds.textContent = addLeadingZero(seconds)),
   });
 }
 
